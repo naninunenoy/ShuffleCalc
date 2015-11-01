@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.GridLayout
+    android:id="@+id/calc_frame"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:alignmentMode="alignBounds"
+    android:background="@color/base_color"
+    app:rowCount="4"
+    app:columnCount="4"
+    app:rowOrderPreserved="false"
+    app:useDefaultMargins="false">
+
+    <Button
+        android:id="@+id/button7"
+        style="@style/calc_button"
+        app:layout_column="0"
+        app:layout_row="0"
+        android:text="7"/>
+
+    <Button
+        android:id="@+id/button8"
+        style="@style/calc_button"
+        app:layout_column="1"
+        app:layout_row="0"
+        android:text="8"/>
+
+    <Button
+        android:id="@+id/button9"
+        style="@style/calc_button"
+        app:layout_column="2"
+        app:layout_row="0"
+        android:text="9"/>
+
+    <Button
+        android:id="@+id/button_dev"
+        style="@style/calc_button"
+        app:layout_column="3"
+        app:layout_row="0"
+        android:text="÷"/>
+
+    <Button
+        android:id="@+id/button4"
+        style="@style/calc_button"
+        app:layout_column="0"
+        app:layout_row="1"
+        android:text="4"/>
+
+    <Button
+        android:id="@+id/button5"
+        style="@style/calc_button"
+        app:layout_column="1"
+        app:layout_row="1"
+        android:text="5"/>
+
+    <Button
+        android:id="@+id/button6"
+        style="@style/calc_button"
+        app:layout_column="2"
+        app:layout_row="1"
+        android:text="6"/>
+
+    <Button
+        android:id="@+id/button_mul"
+        style="@style/calc_button"
+        app:layout_column="3"
+        app:layout_row="1"
+        android:text="x"/>
+
+    <Button
+        android:id="@+id/button1"
+        style="@style/calc_button"
+        app:layout_column="0"
+        app:layout_row="2"
+        android:text="1"/>
+
+    <Button
+        android:id="@+id/button2"
+        style="@style/calc_button"
+        app:layout_column="1"
+        app:layout_row="2"
+        android:text="2"/>
+
+    <Button
+        android:id="@+id/button3"
+        style="@style/calc_button"
+        app:layout_column="2"
+        app:layout_row="2"
+        android:text="3"/>
+
+    <Button
+        android:id="@+id/button_dif"
+        style="@style/calc_button"
+        app:layout_column="3"
+        app:layout_row="2"
+        android:text="-"/>
+
+
+    <Button
+        android:id="@+id/button_dot"
+        style="@style/calc_button"
+        app:layout_column="0"
+        app:layout_row="3"
+        android:text="."/>
+
+    <Button
+        android:id="@+id/button0"
+        style="@style/calc_button"
+        app:layout_column="1"
+        app:layout_row="3"
+        android:text="0"/>
+
+    <Button
+        android:id="@+id/button_eq"
+        style="@style/calc_button"
+        app:layout_column="2"
+        app:layout_row="3"
+        android:text="="/>
+
+    <Button
+        android:id="@+id/button_add"
+        style="@style/calc_button"
+        app:layout_column="3"
+        app:layout_row="3"
+        android:text="+"/>
+
+</android.support.v7.widget.GridLayout>

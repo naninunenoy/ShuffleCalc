@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/preview"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:gravity="center_vertical|right"
+        android:maxLines="2"
+        android:padding="16dp"
+        android:textColor="#5697ac"
+        android:textSize="60dp" />
+
+    <View
+        android:id="@+id/fab_frame"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@+id/preview"
+        android:background="@color/base_color" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/button_del"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/fab_frame"
+        android:layout_alignEnd="@+id/preview"
+        android:src="@drawable/ic_delete" />
+
+    <include
+        layout="@layout/include_calc_button"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/fab_frame" />
+</RelativeLayout>
