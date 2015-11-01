@@ -58,7 +58,7 @@ public class Calculator {
                 mResult = mResult + Float.parseFloat(mInputNumber.toString());
             } else if (value.equals("-")) {
                 mResult = mResult - Float.parseFloat(mInputNumber.toString());
-            } else if (value.equals("×")) {
+            } else if (value.equals("x")) {
                 mResult = mResult * Float.parseFloat(mInputNumber.toString());
             } else if (value.equals("÷")) {
                 mResult = mResult / Float.parseFloat(mInputNumber.toString());
@@ -96,7 +96,7 @@ public class Calculator {
      * @param value 値
      */
     private boolean isOperator(String value) {
-        if (value.equals("+") || value.equals("-") || value.equals("×")
+        if (value.equals("+") || value.equals("-") || value.equals("x")
                 || (value.equals("÷") || value.equals("="))) {
             return true;
         }
