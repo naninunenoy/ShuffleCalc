@@ -25,7 +25,7 @@ public class MoveButton {
         mMovingColor = movingColor;
     }
 
-    public void SetStartPosition(View button, int x, int y){
+    public void setStartPosition(View button, int x, int y){
         mButtonPositionX = (int) button.getX();
         mButtonPositionY = (int) button.getY();
         mOffsetX = x;
@@ -33,7 +33,7 @@ public class MoveButton {
         return;
     }
 
-    public void Move(View button, int x, int y){
+    public void move(View button, int x, int y){
         int diffX = mOffsetX - x;
         int diffY = mOffsetY - y;
         mButtonPositionX -= diffX;
@@ -46,12 +46,12 @@ public class MoveButton {
         return;
     }
 
-    public void EndMove(View button){
+    public void endMove(View button){
         button.setBackgroundResource(mNormalColor);
         return;
     }
 
-    public void SetMovingAnimation(View button){
+    public void setMovingAnimation(View button){
         // 状態の変化を視覚的に分かるように色の変更
         button.setBackgroundResource(mMovingColor);
         //アニメーションの設定

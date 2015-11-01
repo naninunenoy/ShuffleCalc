@@ -28,7 +28,9 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         mTvPreview = (TextView) findViewById(R.id.preview);
         for(int i=0; i < mBtnResIds.length; i++){
             findViewById(mBtnResIds[i]).setOnTouchListener(this);
-            findViewById(mBtnResIds[i]).setOnLongClickListener(this);
+            if(mBtnResIds[i] != R.id.button_del) {
+                findViewById(mBtnResIds[i]).setOnLongClickListener(this);
+            }
         }
     }
 
@@ -51,17 +53,17 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         int y = (int) event.getRawY();
         switch(event.getAction()){
         case MotionEvent.ACTION_DOWN:
-            mMoveButton.SetStartPosition(v,x,y);
+            mMoveButton.setStartPosition(v, x, y);
             break;
         case MotionEvent.ACTION_MOVE:
             if(mIslongClick) {
-                mMoveButton.Move(v,x,y);
+                mMoveButton.move(v, x, y);
             }
             break;
         case MotionEvent.ACTION_CANCEL:
         case MotionEvent.ACTION_UP:
              if(mIslongClick) {
-                 mMoveButton.EndMove(v);
+                 mMoveButton.endMove(v);
              } else {
                  onCalcButtonClick(v);
              }
@@ -77,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     @Override
     public boolean onLongClick(View v) {
         mIslongClick = true;
-        mMoveButton.SetMovingAnimation(v);
+        mMoveButton.setMovingAnimation(v);
         return false;
     }
 
