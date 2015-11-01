@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
             R.id.button_dot, R.id.button_eq, R.id.button_add, R.id.button_dif, R.id.button_mul, R.id.button_dev,
             R.id.button_del};
     private boolean mIslongClick = false;
-    private MoveButton mMoveButton = new MoveButton(R.color.base_color, R.color.selected_color);
+    private MoveButton mMoveButton = new MoveButton();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

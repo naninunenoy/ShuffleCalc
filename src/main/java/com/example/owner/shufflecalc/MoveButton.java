@@ -13,16 +13,16 @@ public class MoveButton {
     private int mOffsetY;
     private int mButtonPositionX;
     private int mButtonPositionY;
-    private int mNormalColor;
-    private int mMovingColor;
+    private int mNormalButtonBackGraound;
+    private int mMovingButtonBackGraound;
 
-    MoveButton(int defaultColor, int movingColor){
+    MoveButton(){
         mOffsetX = 0;
         mOffsetY = 0;
         mButtonPositionX = 0;
         mButtonPositionY = 0;
-        mNormalColor = defaultColor;
-        mMovingColor = movingColor;
+        mNormalButtonBackGraound = R.drawable.selector_button;
+        mMovingButtonBackGraound = R.color.selected_color;
     }
 
     public void setStartPosition(View button, int x, int y){
@@ -47,13 +47,13 @@ public class MoveButton {
     }
 
     public void endMove(View button){
-        button.setBackgroundResource(mNormalColor);
+        button.setBackgroundResource(mNormalButtonBackGraound);
         return;
     }
 
     public void setMovingAnimation(View button){
         // 状態の変化を視覚的に分かるように色の変更
-        button.setBackgroundResource(mMovingColor);
+        button.setBackgroundResource(mMovingButtonBackGraound);
         //アニメーションの設定
         AnimationSet animationSet = new AnimationSet(false);
         // スケール
