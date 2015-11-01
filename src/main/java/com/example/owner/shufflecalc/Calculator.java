@@ -7,9 +7,7 @@ import java.text.DecimalFormat;
 public class Calculator {
 
     private StringBuilder mInputNumber = new StringBuilder();
-
     private String mOperator;
-
     private float mResult = 0;
 
     /**
