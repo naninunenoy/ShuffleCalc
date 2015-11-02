@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * Created by Yosuke Nakano on 2015/11/01.
  */
-public class PuzzleGrid {
+public class PuzzleGridController {
     class ButtonPosition {
         public int viewID;
         public int gridX;
@@ -24,7 +24,7 @@ public class PuzzleGrid {
 
     private int mGirdSizeX;
     private int mGirdSizeY;
-    private ArrayList<ButtonPosition> mButtonMapping;
+    private ArrayList<ButtonPosition> mButtonMapping = new ArrayList<>();
     private final int INVALID_VAL = -1;
 
     /**
@@ -33,7 +33,7 @@ public class PuzzleGrid {
      * @param gridColSize [in] 作成するボタン群の行数
      * @param ids [in] 登録するボタンIDの配列(左上からの配置順になっている想定)
      */
-    PuzzleGrid(final int gridRowSize, final int gridColSize, final int ids[]){
+    PuzzleGridController(final int gridRowSize, final int gridColSize, final int ids[]){
         mGirdSizeX = gridRowSize;
         mGirdSizeY = gridColSize;
         // idsの順番とボタンの配置が一致している前提
@@ -65,7 +65,7 @@ public class PuzzleGrid {
     /**
      * IDで指定されたボタンの周りにあるボタンのIDの配列を取得する
      * @param id [in]
-     * @return 周りにあるボタンのIDの配列(上左右下の順)
+     * @return 周りにあるボタンのIDの配列
      */
     public ArrayList<Integer> getAroundButtonIDs(final int id){
         ButtonPosition btnPos = mButtonMapping.get(searchButtonMappingID(id));
@@ -74,40 +74,36 @@ public class PuzzleGrid {
     /**
      * 指定されたIDの周辺にあるボタンのIDの配列を取得する
      * @param pos 中心となるボタンの配置とID
-     * @return 周辺にあるボタンのIDの配列(上左右下の順)
+     * @return 周辺にあるボタンのIDの配列
      */
     private ArrayList<Integer> getAroundButtonIDs(final ButtonPosition pos){
-        ArrayList<Integer> idList = new ArrayList<>(4);  // 上左右下の順
-        // リスト初期化
-        for (int i = 0; i < idList.size(); i++) {
-            idList.set(i, INVALID_VAL);
-        }
+        ArrayList<Integer> idList = new ArrayList<>();
         // 上のIDを取得
-        if(pos.gridY - 1 > 0){
-            int mapIndex = getButtonMappingIndex(pos.gridX - 1, pos.gridY);
+        if(pos.gridY - 1 >= 0){
+            int mapIndex = getButtonMappingIndex(pos.gridX, pos.gridY - 1);
             if(mapIndex!= INVALID_VAL) {
-                idList.set(0, mButtonMapping.get(mapIndex).viewID);
+                idList.add(mButtonMapping.get(mapIndex).viewID);
             }
         }
         // 左のIDを取得
-        if(pos.gridX - 1 > 0){
-            int mapIndex = getButtonMappingIndex(pos.gridX, pos.gridY - 1);
+        if(pos.gridX - 1 >= 0){
+            int mapIndex = getButtonMappingIndex(pos.gridX - 1, pos.gridY);
             if(mapIndex!= INVALID_VAL) {
-                idList.set(1, mButtonMapping.get(mapIndex).viewID);
+                idList.add(mButtonMapping.get(mapIndex).viewID);
             }
         }
         // 右のIDを取得
-        if(pos.gridX + 1 < mGirdSizeX){
+        if(pos.gridX + 1 <= mGirdSizeX){
             int mapIndex = getButtonMappingIndex(pos.gridX + 1, pos.gridY);
             if(mapIndex!= INVALID_VAL) {
-                idList.set(2, mButtonMapping.get(mapIndex).viewID);
+                idList.add(mButtonMapping.get(mapIndex).viewID);
             }
         }
         // 下のIDを取得
-        if(pos.gridY + 1 < mGirdSizeY){
+        if(pos.gridY + 1 <= mGirdSizeY){
             int mapIndex = getButtonMappingIndex(pos.gridX, pos.gridY + 1);
             if(mapIndex!= INVALID_VAL) {
-                idList.set(3, mButtonMapping.get(mapIndex).viewID);
+                idList.add(mButtonMapping.get(mapIndex).viewID);
             }
         }
         return idList;
