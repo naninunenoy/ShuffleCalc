@@ -13,10 +13,11 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
     private TextView mTvPreview;
     private Calculator mCalculator = new Calculator();
-    private int[] mBtnResIds = {R.id.button0, R.id.button1, R.id.button2, R.id.button3,
-            R.id.button4, R.id.button5, R.id.button6, R.id.button7, R.id.button8, R.id.button9,
-            R.id.button_dot, R.id.button_eq, R.id.button_add, R.id.button_dif, R.id.button_mul, R.id.button_dev,
-            R.id.button_del};
+    private int[] mBtnResIds = {R.id.button7, R.id.button8, R.id.button9, R.id.button_dev,
+                                R.id.button4, R.id.button5, R.id.button6, R.id.button_mul,
+                                R.id.button1, R.id.button2, R.id.button3, R.id.button_dif,
+                                R.id.button_dot, R.id.button0, R.id.button_eq, R.id.button_add,
+                                R.id.button_del};
     private boolean mIslongClick = false;
     private MoveButton mMoveButton = new MoveButton();
 
@@ -26,10 +27,10 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         setContentView(R.layout.activity_main);
         //インスタンスを取得
         mTvPreview = (TextView) findViewById(R.id.preview);
-        for(int i=0; i < mBtnResIds.length; i++){
-            findViewById(mBtnResIds[i]).setOnTouchListener(this);
-            if(mBtnResIds[i] != R.id.button_del) {
-                findViewById(mBtnResIds[i]).setOnLongClickListener(this);
+        for(int btnID: mBtnResIds){
+            findViewById(btnID).setOnTouchListener(this);
+            if(btnID != R.id.button_del) {
+                findViewById(btnID).setOnLongClickListener(this);
             }
         }
     }
