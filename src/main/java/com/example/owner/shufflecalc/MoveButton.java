@@ -13,8 +13,8 @@ public class MoveButton {
     private int mOffsetY;
     private int mButtonPositionX;
     private int mButtonPositionY;
-    private int mNormalButtonBackGraound;
-    private int mMovingButtonBackGraound;
+    private int mNormalButtonBackGround;
+    private int mMovingButtonBackGround;
 
     /**
      * コンストラクタ
@@ -24,8 +24,8 @@ public class MoveButton {
         mOffsetY = 0;
         mButtonPositionX = 0;
         mButtonPositionY = 0;
-        mNormalButtonBackGraound = R.drawable.selector_button;
-        mMovingButtonBackGraound = R.color.selected_color;
+        mNormalButtonBackGround = R.drawable.selector_button;
+        mMovingButtonBackGround = R.color.selected_color;
     }
     /**
      * 移動開始位置を登録する
@@ -62,7 +62,7 @@ public class MoveButton {
      * @param button 移動を完了したボタン
      */
     public void endMove(View button){
-        button.setBackgroundResource(mNormalButtonBackGraound);
+        button.setBackgroundResource(mNormalButtonBackGround);
     }
     /**
      * ボタン移動するときの描画を設定する
@@ -70,7 +70,7 @@ public class MoveButton {
      */
     public void setMovingAnimation(View button){
         // 状態の変化を視覚的に分かるように色の変更
-        button.setBackgroundResource(mMovingButtonBackGraound);
+        button.setBackgroundResource(mMovingButtonBackGround);
         //アニメーションの設定
         AnimationSet animationSet = new AnimationSet(false);
         // スケール
