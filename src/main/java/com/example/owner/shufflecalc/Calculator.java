@@ -4,6 +4,10 @@ package com.example.owner.shufflecalc;
 import android.text.TextUtils;
 import java.text.DecimalFormat;
 
+/**
+ * Created by Terazono Masafumi
+ */
+
 public class Calculator {
 
     private StringBuilder mInputNumber = new StringBuilder();

@@ -3,7 +3,7 @@ package com.example.owner.shufflecalc;
 import java.util.ArrayList;
 
 /**
- * Created by owner on 2015/11/01.
+ * Created by Yosuke Nakano on 2015/11/01.
  */
 public class PuzzleGrid {
     class ButtonPosition {
@@ -15,7 +15,7 @@ public class PuzzleGrid {
             gridX = 0;
             gridY = 0;
         }
-        ButtonPosition(int id, int x, int y){
+        ButtonPosition(final int id, final int x, final int y){
             viewID = id;
             gridX = x;
             gridY = y;
@@ -27,7 +27,13 @@ public class PuzzleGrid {
     private ArrayList<ButtonPosition> mButtonMapping;
     private final int INVALID_VAL = -1;
 
-    PuzzleGrid(int gridRowSize, int gridColSize, int ids[]){
+    /**
+     * コンストラクタ
+     * @param gridRowSize [in] 作成するボタン群の列数
+     * @param gridColSize [in] 作成するボタン群の行数
+     * @param ids [in] 登録するボタンIDの配列(左上からの配置順になっている想定)
+     */
+    PuzzleGrid(final int gridRowSize, final int gridColSize, final int ids[]){
         mGirdSizeX = gridRowSize;
         mGirdSizeY = gridColSize;
         // idsの順番とボタンの配置が一致している前提
@@ -40,13 +46,13 @@ public class PuzzleGrid {
             }
         }
     }
-
-
-
-
-
-
-    private boolean swapID(int id1, int id2){
+    /**
+     * 配置されているボタンのIDを交換する
+     * @param id1 [in] ViewのID
+     * @param id2 [in] ViewのID
+     * @return 交換の成否
+     */
+    public boolean swapID(final int id1, final int id2){
         int index1 = searchButtonMappingID(id1);
         int index2 = searchButtonMappingID(id2);
         if((index1 == INVALID_VAL) || (index2 == INVALID_VAL)){
@@ -56,12 +62,25 @@ public class PuzzleGrid {
         mButtonMapping.get(index2).viewID = id1;
         return true;
     }
-
-    private ArrayList<Integer> getAroundButtonIDs(ButtonPosition pos){
-        ArrayList<Integer> idList = new ArrayList<Integer>(4);  // 上左右下の順
+    /**
+     * IDで指定されたボタンの周りにあるボタンのIDの配列を取得する
+     * @param id [in]
+     * @return 周りにあるボタンのIDの配列(上左右下の順)
+     */
+    public ArrayList<Integer> getAroundButtonIDs(final int id){
+        ButtonPosition btnPos = mButtonMapping.get(searchButtonMappingID(id));
+        return getAroundButtonIDs(btnPos);
+    }
+    /**
+     * 指定されたIDの周辺にあるボタンのIDの配列を取得する
+     * @param pos 中心となるボタンの配置とID
+     * @return 周辺にあるボタンのIDの配列(上左右下の順)
+     */
+    private ArrayList<Integer> getAroundButtonIDs(final ButtonPosition pos){
+        ArrayList<Integer> idList = new ArrayList<>(4);  // 上左右下の順
         // リスト初期化
-        for (int id: idList) {
-            id = INVALID_VAL;
+        for (int i = 0; i < idList.size(); i++) {
+            idList.set(i, INVALID_VAL);
         }
         // 上のIDを取得
         if(pos.gridY - 1 > 0){
@@ -93,8 +112,13 @@ public class PuzzleGrid {
         }
         return idList;
     }
-
-    private int getButtonMappingIndex(int x, int y){
+    /**
+     * xyの位置からmButtonMapping内の配列のインデックスを取得する
+     * @param x [in] 横位置
+     * @param y [in] 縦位置
+     * @return mButtonMapping内の配列のインデックス
+     */
+    private int getButtonMappingIndex(final int x, final int y){
         int cellIndex = INVALID_VAL;
         for(ButtonPosition pos : mButtonMapping){
             if((pos.gridX == x) && (pos.gridY == y)){
@@ -104,8 +128,12 @@ public class PuzzleGrid {
         }
         return cellIndex;
     }
-
-    private int searchButtonMappingID(int id){
+    /**
+     * mButtonMappingから指定されたIDのインデックスを取得する
+     * @param id [in] ViewのID
+     * @return mButtonMapping内の配列のインデックス
+     */
+    private int searchButtonMappingID(final int id){
         int cellIndex = INVALID_VAL;
         for(ButtonPosition pos : mButtonMapping){
             if(pos.viewID == id){

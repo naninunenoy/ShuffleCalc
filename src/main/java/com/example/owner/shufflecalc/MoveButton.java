@@ -16,6 +16,9 @@ public class MoveButton {
     private int mNormalButtonBackGraound;
     private int mMovingButtonBackGraound;
 
+    /**
+     * コンストラクタ
+     */
     MoveButton(){
         mOffsetX = 0;
         mOffsetY = 0;
@@ -24,15 +27,24 @@ public class MoveButton {
         mNormalButtonBackGraound = R.drawable.selector_button;
         mMovingButtonBackGraound = R.color.selected_color;
     }
-
-    public void setStartPosition(View button, int x, int y){
+    /**
+     * 移動開始位置を登録する
+     * @param button [in] 移動を開始するボタン
+     * @param x [in] スクリーン原点の移動開始横位置
+     * @param y [in] スクリーン原点の移動開始縦位置
+     */
+    public void setStartPosition(final View button, final int x, final int y){
         mButtonPositionX = (int) button.getX();
         mButtonPositionY = (int) button.getY();
         mOffsetX = x;
         mOffsetY = y;
-        return;
     }
-
+    /**
+     * ボタン移動処理
+     * @param button [in] 移動をするボタン
+     * @param x [in] スクリーン原点の移動開始横位置
+     * @param y [in] スクリーン原点の移動開始縦位置
+     */
     public void move(View button, int x, int y){
         int diffX = mOffsetX - x;
         int diffY = mOffsetY - y;
@@ -43,14 +55,19 @@ public class MoveButton {
                 mButtonPositionY + button.getHeight());
         mOffsetX = x;
         mOffsetY = y;
-        return;
     }
 
+    /**
+     * 移動の後処理
+     * @param button 移動を完了したボタン
+     */
     public void endMove(View button){
         button.setBackgroundResource(mNormalButtonBackGraound);
-        return;
     }
-
+    /**
+     * ボタン移動するときの描画を設定する
+     * @param button 移動するボタン
+     */
     public void setMovingAnimation(View button){
         // 状態の変化を視覚的に分かるように色の変更
         button.setBackgroundResource(mMovingButtonBackGraound);
@@ -65,6 +82,5 @@ public class MoveButton {
         alpha.setDuration(300);
         animationSet.addAnimation(alpha);
         button.startAnimation(animationSet);
-        return;
     }
 }
