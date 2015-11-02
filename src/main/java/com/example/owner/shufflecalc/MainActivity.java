@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         case MotionEvent.ACTION_UP:
              if(mIslongClick) {
                  mMoveButton.endMove(v);
+                 mPuzzle.cancelAroundButtonsColor(this);
              } else {
                  onCalcButtonClick(v);
              }

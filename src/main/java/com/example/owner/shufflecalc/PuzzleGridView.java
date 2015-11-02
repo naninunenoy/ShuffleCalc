@@ -23,8 +23,7 @@ public class PuzzleGridView {
         mOriginRow = 0;
         mOriginCol = 0;
         mNormalButtonBackGround = R.drawable.selector_button;
-        mMovingButtonBackGround = R.color.selected_color;
-
+        mMovingButtonBackGround = R.color.hilight_color;
     }
 
     // 移動を開始したボタンの周りのボタンをハイライトする
@@ -33,7 +32,7 @@ public class PuzzleGridView {
         ArrayList<Integer> idList = mController.getAroundButtonIDs(btnID);
         for(int id : idList){
             View btn = ((com.example.owner.shufflecalc.MainActivity) context).findViewById(id);
-            btn.setBackgroundColor(mMovingButtonBackGround);
+            btn.setBackgroundResource(mMovingButtonBackGround);
         }
     }
 
@@ -42,4 +41,10 @@ public class PuzzleGridView {
     // ボタンの位置を入れ替える
 
     // 移動をキャンセルして元の位置に戻す
+    public void cancelAroundButtonsColor(Context context){
+        for(int id : mController.getAllButtonIDs()){
+            View btn = ((com.example.owner.shufflecalc.MainActivity) context).findViewById(id);
+            btn.setBackgroundResource(mNormalButtonBackGround);
+        }
+    }
 }

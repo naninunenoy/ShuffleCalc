@@ -71,6 +71,18 @@ public class PuzzleGridController {
         ButtonPosition btnPos = mButtonMapping.get(searchButtonMappingID(id));
         return getAroundButtonIDs(btnPos);
     }
+
+    /**
+     * 登録されたボタンの全ID取得
+     * @return 登録されたボタンの全ID
+     */
+    public  ArrayList<Integer> getAllButtonIDs() {
+        ArrayList<Integer> idList = new ArrayList<>();
+        for(int i = 0; i < mButtonMapping.size(); i++){
+            idList.add(mButtonMapping.get(i).viewID);
+        }
+        return idList;
+    }
     /**
      * 指定されたIDの周辺にあるボタンのIDの配列を取得する
      * @param pos 中心となるボタンの配置とID
@@ -81,7 +93,7 @@ public class PuzzleGridController {
         // 上のIDを取得
         if(pos.gridY - 1 >= 0){
             int mapIndex = getButtonMappingIndex(pos.gridX, pos.gridY - 1);
-            if(mapIndex!= INVALID_VAL) {
+            if(mapIndex != INVALID_VAL) {
                 idList.add(mButtonMapping.get(mapIndex).viewID);
             }
         }

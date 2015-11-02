@@ -5,9 +5,10 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <color name="base_color">#852659</color>
+    <color name="base_color">#4B0082</color>
+    <color name="hilight_color">#6495ED</color>
     <color name="accent_color">#FF0033</color>
-    <color name="selected_color">#FF6633</color>
+    <color name="selected_color">#FF4500</color>
 
     <style name="calc_button" parent="android:Widget.Button">
         <item name="android:background">@drawable/selector_button</item>
