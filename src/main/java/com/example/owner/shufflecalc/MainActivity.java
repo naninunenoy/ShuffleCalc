@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     private boolean mIslongClick = false;
     private MoveButton mMoveButton = new MoveButton();
     private PuzzleGridView mPuzzle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +47,6 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
             gl.getChildAt(i).setMinimumWidth(childWidth);
             gl.getChildAt(i).setMinimumHeight(childHeight);
         }
-
         PuzzleGridController pzlController = new PuzzleGridController(4,4,mBtnResIds);
         mPuzzle = new PuzzleGridView(gl, pzlController);
     }
@@ -58,11 +58,12 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         switch(event.getAction()){
         case MotionEvent.ACTION_DOWN:
             mMoveButton.setStartPosition(v, x, y);
+            mPuzzle.setOriginLayoutParams(findViewById(R.id.calc_frame).getLayoutParams());
             break;
         case MotionEvent.ACTION_MOVE:
             if(mIslongClick) {
-                mPuzzle.colorAroundButtons(v, this);
                 mMoveButton.move(v, x, y);
+                //mPuzzle.changeGridLayout(v,x,y,this);
             }
             break;
         case MotionEvent.ACTION_CANCEL:
@@ -85,6 +86,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     @Override
     public boolean onLongClick(View v) {
         mIslongClick = true;
+        mPuzzle.colorAroundButtons(v, this);
         mMoveButton.setMovingAnimation(v);
         return false;
     }

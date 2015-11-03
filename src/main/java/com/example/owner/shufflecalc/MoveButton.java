@@ -50,6 +50,7 @@ public class MoveButton {
         int diffY = mOffsetY - y;
         mButtonPositionX -= diffX;
         mButtonPositionY -= diffY;
+        button.bringToFront();
         button.layout(mButtonPositionX, mButtonPositionY,
                 mButtonPositionX + button.getWidth(),
                 mButtonPositionY + button.getHeight());

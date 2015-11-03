@@ -1,5 +1,6 @@
 package com.example.owner.shufflecalc;
 
+import java.io.IOError;
 import java.util.ArrayList;
 
 /**
@@ -25,7 +26,7 @@ public class PuzzleGridController {
     private int mGirdSizeX;
     private int mGirdSizeY;
     private ArrayList<ButtonPosition> mButtonMapping = new ArrayList<>();
-    private final int INVALID_VAL = -1;
+    protected final int INVALID_VAL = -1;
 
     /**
      * コンストラクタ
@@ -82,6 +83,29 @@ public class PuzzleGridController {
             idList.add(mButtonMapping.get(i).viewID);
         }
         return idList;
+    }
+
+    public int getButtonIDByGridXY(final int gridX, final int gridY){
+        int index = getButtonMappingIndex(gridX, gridY);
+        if(index != INVALID_VAL) {
+            return mButtonMapping.get(index).viewID;
+        }
+        return INVALID_VAL;
+    }
+
+    public boolean isAroundButton(final int buttonID, final int centerButtonID){
+        ArrayList<Integer> idList = new ArrayList<>();
+        idList = getAroundButtonIDs(centerButtonID);
+        for(int id : idList){
+            if(id == buttonID){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public ArrayList<ButtonPosition> getButtonMap(){
+        return mButtonMapping;
     }
     /**
      * 指定されたIDの周辺にあるボタンのIDの配列を取得する
