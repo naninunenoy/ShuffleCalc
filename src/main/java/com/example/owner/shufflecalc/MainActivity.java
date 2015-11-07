@@ -48,7 +48,9 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
             gl.getChildAt(i).setMinimumHeight(childHeight);
         }
         PuzzleGridController pzlController = new PuzzleGridController(4,4,mBtnResIds);
-        mPuzzle = new PuzzleGridView(gl, pzlController);
+        final int[] onScreen = new int[2];
+        (findViewById(R.id.calc_frame)).getLocationOnScreen(onScreen);
+        mPuzzle = new PuzzleGridView(gl, pzlController, onScreen[1]);
     }
 
     @Override
@@ -58,18 +60,18 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         switch(event.getAction()){
         case MotionEvent.ACTION_DOWN:
             mMoveButton.setStartPosition(v, x, y);
-            mPuzzle.setOriginLayoutParams(findViewById(R.id.calc_frame).getLayoutParams());
+            mPuzzle.setOriginLayoutParams((findViewById(R.id.calc_frame)).getLayoutParams());
             break;
         case MotionEvent.ACTION_MOVE:
             if(mIslongClick) {
                 mMoveButton.move(v, x, y);
-                //mPuzzle.changeGridLayout(v,x,y,this);
             }
             break;
         case MotionEvent.ACTION_CANCEL:
         case MotionEvent.ACTION_UP:
              if(mIslongClick) {
                  mMoveButton.endMove(v);
+                 mPuzzle.changeGridLayout(v, x, y, this);
                  mPuzzle.cancelAroundButtonsColor(this);
              } else {
                  onCalcButtonClick(v);
