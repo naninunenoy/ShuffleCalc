@@ -2,30 +2,43 @@ package com.example.owner.shufflecalc;
 
 import java.io.IOError;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by Yosuke Nakano on 2015/11/01.
  */
 public class PuzzleGridController {
-    class ButtonPosition {
+    class ButtonPosition implements Cloneable {
         public int viewID;
         public int gridX;
         public int gridY;
-        ButtonPosition(){
+
+        ButtonPosition() {
             viewID = INVALID_VAL;
             gridX = 0;
             gridY = 0;
         }
-        ButtonPosition(final int id, final int x, final int y){
+
+        ButtonPosition(final int id, final int x, final int y) {
             viewID = id;
             gridX = x;
             gridY = y;
+        }
+
+        @Override
+        public Object clone() {
+            try {
+                return super.clone();
+            } catch (CloneNotSupportedException e) {
+                throw new InternalError(e.toString());
+            }
         }
     }
 
     private int mGirdSizeX;
     private int mGirdSizeY;
     private ArrayList<ButtonPosition> mButtonMapping = new ArrayList<>();
+    private final ArrayList<ButtonPosition> mInitialButtonMapping;
     protected final int INVALID_VAL = -1;
 
     /**
@@ -46,7 +59,13 @@ public class PuzzleGridController {
                 cell++;
             }
         }
+        // 初期設定を保存しておく
+        mInitialButtonMapping = new ArrayList<>(mButtonMapping.size());
+        for(ButtonPosition btn : mButtonMapping){
+            mInitialButtonMapping.add((ButtonPosition)btn.clone());
+        }
     }
+
     /**
      * 配置されているボタンのIDを交換する
      * @param id1 [in] ViewのID
@@ -63,6 +82,7 @@ public class PuzzleGridController {
         mButtonMapping.get(index2).viewID = id1;
         return true;
     }
+
     /**
      * IDで指定されたボタンの周りにあるボタンのIDの配列を取得する
      * @param id [in]
@@ -85,6 +105,12 @@ public class PuzzleGridController {
         return idList;
     }
 
+    /**
+     * グリッドの座標を指定して該当するボタンのIDを取得する
+     * @param gridX 横の位置
+     * @param gridY 縦の位置
+     * @return 該当するボタンのID
+     */
     public int getButtonIDByGridXY(final int gridX, final int gridY){
         int index = getButtonMappingIndex(gridX, gridY);
         if(index != INVALID_VAL) {
@@ -93,8 +119,14 @@ public class PuzzleGridController {
         return INVALID_VAL;
     }
 
+    /**
+     * 中心となるボタンの周りに該当するボタンがあるかを判定する
+     * @param buttonID 周辺にあるかの判定対象になるボタンのID
+     * @param centerButtonID 中心にあるボタンのID
+     * @return 周辺にあるかの判定結果
+     */
     public boolean isAroundButton(final int buttonID, final int centerButtonID){
-        ArrayList<Integer> idList = new ArrayList<>();
+        ArrayList<Integer> idList;
         idList = getAroundButtonIDs(centerButtonID);
         for(int id : idList){
             if(id == buttonID){
@@ -104,8 +136,21 @@ public class PuzzleGridController {
         return false;
     }
 
+    /**
+     * グリッドの位置とボタンIDの対応を取得する
+     * @return グリッドの位置とボタンIDの対応
+     */
     public ArrayList<ButtonPosition> getButtonMap(){
         return mButtonMapping;
+    }
+
+    /**
+     * ボタンの配置を初期状態に戻す
+     */
+    public void revertButtonMapping(){
+        for(int i=0; i < mButtonMapping.size(); i++) {
+            mButtonMapping.set(i, (ButtonPosition) mInitialButtonMapping.get(i).clone());
+        }
     }
     /**
      * 指定されたIDの周辺にあるボタンのIDの配列を取得する
@@ -144,6 +189,7 @@ public class PuzzleGridController {
         }
         return idList;
     }
+
     /**
      * xyの位置からmButtonMapping内の配列のインデックスを取得する
      * @param x [in] 横位置
@@ -160,6 +206,7 @@ public class PuzzleGridController {
         }
         return cellIndex;
     }
+
     /**
      * mButtonMappingから指定されたIDのインデックスを取得する
      * @param id [in] ViewのID

@@ -30,9 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         mTvPreview = (TextView) findViewById(R.id.preview);
         for(int btnID: mBtnResIds){
             findViewById(btnID).setOnTouchListener(this);
-            if(btnID != R.id.button_del) {
-                findViewById(btnID).setOnLongClickListener(this);
-            }
+            findViewById(btnID).setOnLongClickListener(this);
         }
     }
 
@@ -59,20 +57,28 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         int y = (int) event.getRawY();
         switch(event.getAction()){
         case MotionEvent.ACTION_DOWN:
-            mMoveButton.setStartPosition(v, x, y);
-            mPuzzle.setOriginLayoutParams((findViewById(R.id.calc_frame)).getLayoutParams());
+            if(v.getId() != R.id.button_del) {
+                mMoveButton.setStartPosition(v, x, y);
+                mPuzzle.setOriginLayoutParams((findViewById(R.id.calc_frame)).getLayoutParams());
+            }
             break;
         case MotionEvent.ACTION_MOVE:
             if(mIslongClick) {
-                mMoveButton.move(v, x, y);
+                if(v.getId() != R.id.button_del) {
+                    mMoveButton.move(v, x, y);
+                }
             }
             break;
         case MotionEvent.ACTION_CANCEL:
         case MotionEvent.ACTION_UP:
              if(mIslongClick) {
-                 mMoveButton.endMove(v);
-                 mPuzzle.changeGridLayout(v, x, y, this);
-                 mPuzzle.cancelAroundButtonsColor(this);
+                 if(v.getId() == R.id.button_del) {
+                     mPuzzle.revertButtonPosition(this);
+                 } else {
+                     mMoveButton.endMove(v);
+                     mPuzzle.changeGridLayout(v, x, y, this);
+                     mPuzzle.cancelAroundButtonsColor(this);
+                 }
              } else {
                  onCalcButtonClick(v);
              }
@@ -88,8 +94,10 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     @Override
     public boolean onLongClick(View v) {
         mIslongClick = true;
-        mPuzzle.colorAroundButtons(v, this);
-        mMoveButton.setMovingAnimation(v);
+        if(v.getId() != R.id.button_del) {
+            mPuzzle.colorAroundButtons(v, this);
+            mMoveButton.setMovingAnimation(v);
+        }
         return false;
     }
 

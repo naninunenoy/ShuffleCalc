@@ -19,6 +19,12 @@ public class PuzzleGridView {
     private int mMovingButtonBackGround;
     private int mOffsetYOnScreen;
 
+    /**
+     * コンストラクタ
+     * @param gridLayout もとになるグリッドレイアウト
+     * @param controller グリッドレイアウトの位置とボタンの対応を計算するコントローラ
+     * @param offsetY 画面の縦方向のオフセット
+     */
     PuzzleGridView(GridLayout gridLayout, PuzzleGridController controller, int offsetY){
         mGridLayout = gridLayout;
         mController = controller;
@@ -27,17 +33,27 @@ public class PuzzleGridView {
         mOffsetYOnScreen = offsetY;
     }
 
-    // 移動を開始したボタンの周りのボタンをハイライトする
+    /**
+     * 指定されたボタンの周辺のボタンをハイライトする
+     * @param button 指定されたボタン
+     * @param context Activityのコンテクスト
+     */
     public void colorAroundButtons(View button, Context context){
         int btnID = button.getId();
         ArrayList<Integer> idList = mController.getAroundButtonIDs(btnID);
         for(int id : idList){
-            View btn = ((com.example.owner.shufflecalc.MainActivity) context).findViewById(id);
+            View btn = ((MainActivity) context).findViewById(id);
             btn.setBackgroundResource(mMovingButtonBackGround);
         }
     }
 
-    // 移動でオーバーされたボタンの位置を入れ替える
+    /**
+     * ボタンとボタンの位置からグリッドレイアウトの更新を行う
+     * @param button ボタン
+     * @param x スクリーン上の横位置
+     * @param y スクリーン上の縦位置
+     * @param context Activityのコンテクスト
+     */
     public void changeGridLayout(View button, final int x, final int y, Context context){
         int gridWidth = mGridLayout.getWidth() / mGridLayout.getColumnCount();
         int gridHeight = mGridLayout.getHeight() / mGridLayout.getRowCount();
@@ -58,24 +74,41 @@ public class PuzzleGridView {
         }
     }
 
-    // ボタンの位置を入れ替える
+    /**
+     * ボタンの位置を最初の配置に戻す
+     * @param context Activityのコンテクスト
+     */
+    public void revertButtonPosition(Context context){
+        mController.revertButtonMapping();
+        renewLayoutParam(context);
+    }
 
-    // 移動をキャンセルして元の位置に戻す
+    /**
+     * 移動を元に戻し、ハイライトしたボタンの色をもとに戻す
+     * @param context Activityのコンテクスト
+     */
     public void cancelAroundButtonsColor(Context context){
         // ボタンの色を戻す
         for(int id : mController.getAllButtonIDs()){
-            View btn = ((com.example.owner.shufflecalc.MainActivity) context).findViewById(id);
+            View btn = ((MainActivity) context).findViewById(id);
             btn.setBackgroundResource(mNormalButtonBackGround);
         }
         // 元の場所に戻す
-        ((com.example.owner.shufflecalc.MainActivity) context).findViewById(R.id.calc_frame).setLayoutParams(mOriginLayoutParam);
+        ((MainActivity) context).findViewById(R.id.calc_frame).setLayoutParams(mOriginLayoutParam);
     }
 
-    // 移動前の位置を保存
+    /**
+     * 移動前の位置を保存する
+     * @param params 初期状態のレイアウトパラメータ
+     */
     public void setOriginLayoutParams(LayoutParams params){
         mOriginLayoutParam = params;
     }
 
+    /**
+     * グリッドレイアウトのパラメータを更新
+     * @param context Activityのコンテクスト
+     */
     private void renewLayoutParam(Context context){
         for(int i=0; i < mController.getButtonMap().size(); i++){
             int x = mController.getButtonMap().get(i).gridX;
@@ -84,7 +117,7 @@ public class PuzzleGridView {
             GridLayout.LayoutParams gparam = new GridLayout.LayoutParams();
             gparam.rowSpec = GridLayout.spec(y);
             gparam.columnSpec = GridLayout.spec(x);
-            ((com.example.owner.shufflecalc.MainActivity) context).findViewById(id).setLayoutParams(gparam);
+            ((MainActivity) context).findViewById(id).setLayoutParams(gparam);
         }
     }
 }
